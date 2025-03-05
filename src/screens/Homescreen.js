@@ -38,10 +38,6 @@ const HomeScreen = ({navigation}) => {
           </View>
         )}
       />
-      <Button
-        title="Go to Wallet Generator"
-        onPress={() => navigation.navigate('WalletGenerator')}
-      />
     </View>
   );
 };
