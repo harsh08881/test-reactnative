@@ -1,11 +1,19 @@
 import React from 'react';
-import {
-  Text
-} from 'react-native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+import HomeScreen from './src/screens/Homescreen';
+import PostListScreen from './src/screens/Postlist';
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <Text>API Data:</Text>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="ApiData" component={PostListScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

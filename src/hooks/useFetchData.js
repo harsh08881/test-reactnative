@@ -1,31 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 
-const useFetchData = (url, options = {}) => {
+const useFetchData = (fetchFunction) => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(url, options);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const result = await response.json();
-        setData(result);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const callApi = useCallback(async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const result = await fetchFunction();
+      setData(result);
+    } catch (err) {
+      setError(err.message || 'Something went wrong');
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchFunction]);
 
-    fetchData();
-  }, [url, JSON.stringify(options)]); // Re-run if URL or options change
-
-  return { data, loading, error };
+  return { data, loading, error, callApi };
 };
 
 export default useFetchData;
