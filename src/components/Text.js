@@ -1,25 +1,15 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {Text, StyleSheet} from 'react-native';
 
-const TextScreen = () => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.text}>This is a simple text screen!</Text>
-        </View>
-    );
+const TextComponent = ({text}) => {
+    return <Text style={styles.text}>{text}</Text>;
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'lightblue'
-    },
     text: {
         fontSize: 18,
         color: 'black'
     }
 });
 
-export default TextScreen;
+export default TextComponent;
